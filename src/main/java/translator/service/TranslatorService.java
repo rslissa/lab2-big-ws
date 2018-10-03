@@ -7,9 +7,9 @@ import translator.domain.TranslatedText;
 
 public interface TranslatorService {
 
-    TranslatedText translate(String langFrom, String langTo, String text);
+  TranslatedText translate(String langFrom, String langTo, String text);
 
-    default Logger log() {
-        return LoggerFactory.getLogger(getClass());
-    }
+  default Logger log() {
+    return LoggerFactory.getLogger(getClass());
+  }
 }

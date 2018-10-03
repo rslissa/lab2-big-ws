@@ -6,10 +6,10 @@ import org.springframework.scheduling.annotation.AsyncResult;
 
 public interface Translator {
 
-    AsyncResult<String> translate(LanguageSourceTarget languageSourceTarget, String text);
+  AsyncResult<String> translate(LanguageSourceTarget languageSourceTarget, String text);
 
-    default Logger log() {
-        return LoggerFactory.getLogger(getClass());
-    }
+  default Logger log() {
+    return LoggerFactory.getLogger(getClass());
+  }
 
 }

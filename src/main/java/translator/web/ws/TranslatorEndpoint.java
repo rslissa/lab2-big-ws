@@ -15,23 +15,27 @@ import translator.web.ws.schema.GetTranslationResponse;
 @Endpoint
 public class TranslatorEndpoint {
 
-	@Autowired
-	TranslatorService translatorService;
+  private final TranslatorService translatorService;
 
-	@PayloadRoot(namespace = "http://translator/web/ws/schema", localPart = "getTranslationRequest")
-	@ResponsePayload
-	public GetTranslationResponse translator(@RequestPayload GetTranslationRequest request) {
-		GetTranslationResponse response = new GetTranslationResponse();
-		try {
-			TranslatedText translatedText = translatorService.translate(request.getLangFrom(), request.getLangTo(),
-					request.getText());
-			response.setResultCode("ok");
-			response.setTranslation(translatedText.getTranslation());
-		} catch (TranslatorException e) {
-			response.setResultCode("error");
-			response.setErrorMsg(e.getMessage());
-		}
-		return response;
-	}
+  @Autowired
+  public TranslatorEndpoint(TranslatorService translatorService) {
+    this.translatorService = translatorService;
+  }
+
+  @PayloadRoot(namespace = "http://translator/web/ws/schema", localPart = "getTranslationRequest")
+  @ResponsePayload
+  public GetTranslationResponse translator(@RequestPayload GetTranslationRequest request) {
+    GetTranslationResponse response = new GetTranslationResponse();
+    try {
+      TranslatedText translatedText = translatorService.translate(request.getLangFrom(), request.getLangTo(),
+              request.getText());
+      response.setResultCode("ok");
+      response.setTranslation(translatedText.getTranslation());
+    } catch (TranslatorException e) {
+      response.setResultCode("error");
+      response.setErrorMsg(e.getMessage());
+    }
+    return response;
+  }
 
 }

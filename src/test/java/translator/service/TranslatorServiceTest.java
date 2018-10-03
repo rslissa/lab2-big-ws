@@ -16,12 +16,13 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(classes = Application.class)
 public class TranslatorServiceTest {
 
-    @Autowired
-    TranslatorService translatorService;
-    @Test
-    public void translateTest() throws Exception {
-        TranslatedText translatedText = translatorService.translate("en", "es", "This is a test of translation service");
-        assertEquals("Esto es una prueba de servicio de traducción",translatedText.getTranslation());
-    }
+  @Autowired
+  TranslatorService translatorService;
+
+  @Test
+  public void translateTest() {
+    TranslatedText translatedText = translatorService.translate("en", "es", "This is a test of translation service");
+    assertEquals("Esto es una prueba de servicio de traducción", translatedText.getTranslation());
+  }
 
 }
