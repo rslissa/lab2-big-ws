@@ -25,70 +25,28 @@ import static org.junit.Assert.assertThat;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = Application.class)
 public class TranslatorEndpointTest {
 
-    private Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
+  private Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
 
-    @LocalServerPort
-    private int port;
+  @LocalServerPort
+  private int port;
 
-    @Before
-    public void init() throws Exception {
-        marshaller.setPackagesToScan(ClassUtils.getPackageName(GetTranslationRequest.class));
-        marshaller.afterPropertiesSet();
-    }
+  @Before
+  public void init() throws Exception {
+    marshaller.setPackagesToScan(ClassUtils.getPackageName(GetTranslationRequest.class));
+    marshaller.afterPropertiesSet();
+  }
 
-    @Test
-    public void testSendAndReceive() {
-        GetTranslationRequest request = new GetTranslationRequest();
-        request.setLangFrom("en");
-        request.setLangTo("es");
-        request.setText("This is a test of translation service");
-        Object response = new WebServiceTemplate(marshaller).marshalSendAndReceive("http://localhost:"
-                + port + "/ws", request);
-        assertNotNull(response);
-        assertThat(response, instanceOf(GetTranslationResponse.class));
-        GetTranslationResponse translation = (GetTranslationResponse) response;
-        assertThat(translation.getTranslation(), is("Esto es una prueba de servicio de traducción"));
-    }
-
-    @Test
-    public void testSendAndReceiveEnglishToEsperanto() {
-        GetTranslationRequest request = new GetTranslationRequest();
-        request.setLangFrom("en");
-        request.setLangTo("eo");
-        request.setText("This is a test of translation service");
-        Object response = new WebServiceTemplate(marshaller).marshalSendAndReceive("http://localhost:"
-                + port + "/ws", request);
-        assertNotNull(response);
-        assertThat(response, instanceOf(GetTranslationResponse.class));
-        GetTranslationResponse translation = (GetTranslationResponse) response;
-        assertThat(translation.getTranslation(), is("Tio ĉi estas testo de traduk-servo"));
-    }
-
-    @Test
-    public void testSendAndReceiveEnglishToAlbanian() {
-        GetTranslationRequest request = new GetTranslationRequest();
-        request.setLangFrom("en");
-        request.setLangTo("sq");
-        request.setText("This is a test of translation service");
-        Object response = new WebServiceTemplate(marshaller).marshalSendAndReceive("http://localhost:"
-                + port + "/ws", request);
-        assertNotNull(response);
-        assertThat(response, instanceOf(GetTranslationResponse.class));
-        GetTranslationResponse translation = (GetTranslationResponse) response;
-        assertThat(translation.getTranslation(), is("Kjo është një provë e shërbimit të përkthimit"));
-    }
-
-    @Test
-    public void testSendAndReceiveSpanishToItalian() {
-        GetTranslationRequest request = new GetTranslationRequest();
-        request.setLangFrom("es");
-        request.setLangTo("it");
-        request.setText("Esto es otra prueba");
-        Object response = new WebServiceTemplate(marshaller).marshalSendAndReceive("http://localhost:"
-                + port + "/ws", request);
-        assertNotNull(response);
-        assertThat(response, instanceOf(GetTranslationResponse.class));
-        GetTranslationResponse translation = (GetTranslationResponse) response;
-        assertThat(translation.getTranslation(), is("Questo è un altro test"));
-    }
+  @Test
+  public void testSendAndReceive() {
+    GetTranslationRequest request = new GetTranslationRequest();
+    request.setLangFrom("en");
+    request.setLangTo("es");
+    request.setText("This is a test of translation service");
+    Object response = new WebServiceTemplate(marshaller).marshalSendAndReceive("http://localhost:"
+            + port + "/ws", request);
+    assertNotNull(response);
+    assertThat(response, instanceOf(GetTranslationResponse.class));
+    GetTranslationResponse translation = (GetTranslationResponse) response;
+    assertThat(translation.getTranslation(), is("Esto es una prueba de servicio de traducción"));
+  }
 }
