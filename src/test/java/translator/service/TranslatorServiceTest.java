@@ -21,8 +21,19 @@ public class TranslatorServiceTest {
 
   @Test
   public void translateTest() {
-    TranslatedText translatedText = translatorService.translate("en", "es", "This is a test of translation service");
+    TranslatedText translatedText = translatorService.translate(
+            "en", "es", "This is a test of translation service");
     assertEquals("Esto es una prueba de servicio de traducción", translatedText.getTranslation());
   }
 
+  public void translateTest_Es_Fr() {
+    TranslatedText translatedText = translatorService.translate(
+            "es", "fr", "Esto es una prueba de servicio de traducción");
+    assertEquals("Ceci est un test du service de traduction", translatedText.getTranslation());
+  }
+  public void translateTest_Fr_Es() {
+    TranslatedText translatedText = translatorService.translate(
+            "fr", "es", "Ceci est un test du service de traduction");
+    assertEquals("Esto es una prueba de servicio de traducción", translatedText.getTranslation());
+  }
 }
